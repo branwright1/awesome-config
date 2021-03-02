@@ -15,7 +15,7 @@ local config_path = os.getenv("HOME") .. "/.config/awesome/"
 theme.wallpaper = "~/Wallpapers/wallhaven-5weoz7.png"
 
 -- Global font
-theme.font = "Dina 9"
+theme.font = "Dina Bold 10"
 
 -- Wibar Settigs
 theme.wibar_height = dpi(27)
@@ -63,11 +63,10 @@ theme.bg_systray = theme.bg_normal
 theme.systray_icon_size = dpi(16)
 
 -- Titlebars
-theme.titlebar_bg_focus  = "#3E2D23"
-theme.titlebar_bg_normal = "#3c2b22"
-theme.titlebar_fg_focus  = "#473428"
-theme.titlebar_fg_normal = "#3c2b22"
-theme.titlebar_size = dpi(40)
+theme.titlebar_bg_focus  = "#272520"
+theme.titlebar_bg_normal = "#272520"
+theme.titlebar_fg_focus  = "#79695a"
+theme.titlebar_fg_normal = "#79695a"
 
 -- Windows
 theme.useless_gap   = dpi(12)
@@ -91,10 +90,10 @@ theme.calendar_month_border_width = dpi(3)
 theme.calendar_month_border_color = "#79695a"
 
 -- mouse menu
-theme.menu_height       = dpi(26)
+theme.menu_height       = dpi(28)
 theme.menu_width        = dpi(120)
 theme.menu_font         = "Dina 9"
-theme.menu_border_width = dpi(3)
+theme.menu_border_width = dpi(2)
 theme.menu_border_color = "#443a36"
 
 -- Generate Awesome icon:
@@ -110,17 +109,17 @@ theme = theme_assets.recolor_layout(theme, theme.fg_normal)
 
 -- Bling tabbar settings
 theme.tabbed_spawn_in_tab = true
-theme.tabbar_style = "boxes"
-theme.tabbar_size = dpi(43)
+theme.tabbar_style = "modern"
+theme.tabbar_size = dpi(42)
 theme.tabbar_ontop  = true
-theme.tabbar_position = "bottom"
+theme.tabbar_position = "top"
 theme.tabbar_color_close = "#674441"
 theme.tabbar_color_min = "#84694e"
 theme.tabbar_color_float = "#545e5e"
 theme.tabbar_bg_normal = "#272520"
 theme.tabbar_fg_normal = theme.fg_normal
 theme.tabbar_bg_focus  = theme.bg_normal
-theme.tabbar_fg_focus  = theme.fg_normal
+theme.tabbar_fg_focus  = theme.fg_focus
 
 -- Bling mstab settings
 theme.mstab_bar_height = dpi(35) -- 35

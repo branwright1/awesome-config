@@ -19,7 +19,7 @@ run_once("nm-applet")
 run_once("sh ~/.screenlayout/herbstluftwm.sh")
 
 -- Compositor
-run_once("picom")
+run_once("picom -b")
 
 -- Flameshot
 run_once("flameshot")
