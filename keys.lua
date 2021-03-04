@@ -241,23 +241,24 @@ awful.keyboard.append_global_keybindings({
             awful.tag.incncol(-1, nil, true)
         end,
     },
-    awful.key {
-        modifiers = { modkey }, 
-        key = "space",
-        group = "Layout",
-        description = "select next",
-        on_press = function()
-            awful.layout.inc( 1)
-        end,
-    },
-    awful.key {
-        modifiers = { modkey, shiftkey },
-        key = "space",
-        description = "select previous",
-        on_press = function()
-            awful.layout.inc(-1)
-        end,
-    },
+--    awful.key {
+--        modifiers = { modkey }, 
+--        key = "space",
+--        group = "tag",
+--        description = "select next",
+--        on_press = function()
+--            awful.layout.inc( 1)
+--        end,
+--    },
+--    awful.key {
+--        modifiers = { modkey, shiftkey },
+--        key = "space",
+--        group = "tag",
+--        description = "select previous",
+--        on_press = function()
+--            awful.layout.inc(-1)
+--        end,
+--    },
 })
 
 

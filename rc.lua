@@ -3,7 +3,6 @@ pcall(require, "luarocks.loader")
 local awful = require("awful")
 local gears = require("gears")
 local naughty = require("naughty")
-local menubar = require("menubar")
 local beautiful = require("beautiful")
 
 -- Error on startup notification:
@@ -26,7 +25,6 @@ require("collision")()
 
 bling.module.flash_focus.enable()
 
-
 -- Variables for keys.lua
 modkey = "Mod1"
 shiftkey = "Shift"
@@ -43,24 +41,29 @@ discord = "Discord"
 telegram = "telegram-desktop"
 
 
--- Define layouts
-tag.connect_signal("request::default_layouts", function()
-    awful.layout.append_default_layouts({
-        awful.layout.suit.floating,
-        awful.layout.suit.tile,
-        bling.layout.centered,
+-- Define tag names
+screen.connect_signal("request::desktop_decoration", function(s)
+    awful.tag.add("1", {
+        gap = 12,
+        screem = s,
+        layout = bling.layout.vertical,
+    })
+    awful.tag.add("2", {
+        gap = 0,
+        screen = s,
+        selected = true,
+        layout = awful.layout.suit.floating,
+    })
+    awful.tag.add("3", {
+        gap = 12,
+        screen = s,
+        layout = bling.layout.equalarea,
     })
 end)
 
--- Define tag names
-screen.connect_signal("request::desktop_decoration", function(s)
-    awful.tag({ "1", "2", "3" }, s, awful.layout.layouts[1])
-
-end)
--- }}}
 
 -- Load wallpaper from themes folder
-gears.wallpaper.maximized(gears.filesystem.get_configuration_dir() .. "themes/wallhaven-5weoz7.png", s, false, nil)
+gears.wallpaper.maximized(gears.filesystem.get_configuration_dir() .. "assets/wallpapers/house-wall.png", s, false, nil)
 
 
 -- Focus on click
@@ -68,12 +71,15 @@ client.connect_signal("focus",
     function(c) 
         c.border_color = beautiful.border_focus 
 end)
+
 client.connect_signal("unfocus", 
-    function(c) c.border_color = beautiful.border_normal 
+    function(c)
+        c.border_color = beautiful.border_normal 
 end)
 
 -- Load modules
 require("keys") -- keybindings
 require("rules") -- rules for clients and notifs
+require("windows") -- extended window placement
 require("autostart") -- Stolen from JavaCafe01 :)
 require("decorations") -- bars, menus, titlebars etc.

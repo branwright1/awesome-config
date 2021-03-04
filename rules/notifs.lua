@@ -1,16 +1,8 @@
 local naughty = require("naughty")
 local ruled = require("ruled")
 local awful = require("awful")
+local naughty = require("naughty")
 local beautiful = require("beautiful")
-
--- Error on startup notification:
-naughty.connect_signal("request::display_error", function(message, startup)
-    naughty.notification {
-        urgency = "critical",
-        title   = "Oops, an error happened"..(startup and " during startup!" or "!"),
-        message = message
-    }
-end)
 
 ruled.notification.connect_signal('request::rules', function()
     -- All notifications will match this rule.
@@ -27,3 +19,7 @@ naughty.connect_signal("request::display", function(n)
     naughty.layout.box { notification = n }
 end)
 
+naughty.config.padding = "10"
+naughty.config.defaults.position = "bottom_left"
+naughty.config.defaults.margin = 8
+naughty.config.defaults.border_width = 2
