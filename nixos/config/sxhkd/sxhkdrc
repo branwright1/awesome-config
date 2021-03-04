@@ -1,0 +1,135 @@
+# ] -----  RELOAD SXHKD  ----- [
+
+alt + Escape
+	pkill -USR1 -x sxhkd
+
+# ] -----  BIND APPS  ----- [
+
+shift + space
+	rofi -show
+
+# alacritty
+alt + @Return
+	alacritty
+
+Print
+	maim -s -D -k | xclip -selection clipboard -t image/png
+
+# ] ----- MISC BINDINGS ----- [
+
+alt + g
+    sh ~/Scripts/notifications/greeting.sh
+
+alt + b 
+    polybar tags & disown && herbstclient pad 0 46 0 0 0
+
+alt + shift + b 
+    pkill polybar && herbstclient pad 0 0 0 0 0 
+
+
+# ] ----- BIND WDIGETS ----- [
+
+alt + d
+    ~/.local/bin/eww open startpage && herbstclient pad 0 46 370 0 0
+
+alt + shift + d 
+    ~/.local/bin/eww close startpage && herbstclient pad 0 46 0 0 0 
+
+super + d 
+    sh ~/layouts/dwindle2.sh
+
+super + m
+    sh ~/layouts/centered-master.sh
+
+super + v
+    sh ~/layouts/vertical.sh
+
+super + r
+    sh ~/layouts/reset
+
+#  ] -----  HERBSTLUFTWM  ----- [
+
+alt + shift + r
+    herbstclient reload
+
+alt + shift + q
+    herbstclient close
+
+alt + shift + e
+    herbstclient quit
+
+# ] -----  FOCUSING CLIENTS  ----- [
+
+alt + Left
+    herbstclient focus left
+
+alt + Down
+    herbstclient focus down
+
+alt + Up
+    herbstclient focus up
+
+alt + Right
+    herbstclient focus right
+
+# ] -----  MOVING CLIENTS  ----- [
+
+alt + shift + Left 
+    herbstclient shift left
+
+alt + shift + Down
+    herbstclient shift down
+
+alt + shift + Up 
+    herbstclient shift up
+
+alt + shift + Right 
+    herbstclient shift right
+
+# ] -----  SPLITING FRAMES  ----- [
+
+alt + super + Left
+    herbstclient split left 0.5
+
+alt + super + Down 
+    herbstclient split bottom 0.5
+
+alt + super + Up
+    herbstclient split top 0.5
+
+alt + super + Right
+    herbstclient split right 0.5
+
+alt + control + @space
+    herbstclient split explode
+
+# ] -----  RESIZING FRAME AND FLOATING CLIENTS  ----- [
+
+alt + control + Left 
+    herbstclient resize left 0.01
+
+alt + control + Down
+    herbstclient resize down 0.01
+
+alt + control + Up
+    herbstclient resize up 0.01
+
+alt + control + Right
+    herbstclient resize right 0.01
+
+# ] -----  LAYOUTING  ----- [
+
+alt + r 
+    herbstclient remove
+
+alt + s 
+    herbstclient floating toggle
+
+alt + f 
+    herbstclient fullscreen toggle
+
+alt + shift + f 
+    herbstclient set_attr clients.focus.floating toggle
+
+alt + p 
+    herbstclient pseudotile toggle 

@@ -1,0 +1,13 @@
+set selection-clipboard clipboard
+
+set default-fg "#79695a"
+set inputbar-fg "#79695a"
+set statusbar-fg "#5d6051"
+set default-bg "#201e1a"
+set inputbar-bg "#201e1a"
+set statusbar-bg "#272520"
+set font "Dina 9"
+set recolor
+set recolor-keephue
+set recolor-lightcolor "#201e1a"
+set recolor-darkcolor "#79695a"

@@ -1,0 +1,120 @@
+[colors]
+background = #00201e1a
+background-alt = #201e1a
+foreground = #79695a
+ctrlbg = "#473428"
+prefix = #5d6051
+module = #79695a
+empty = #574e4a
+
+[bar/musictrl]
+monitor = HDMI-1
+bottom = false
+background = ${colors.background-alt}
+foreground = ${colors.foreground}
+border-size = 0
+border-color = #3c2b22
+fixed-center = true
+width = 6%
+height = 30
+radius = 1.0
+padding-left = 0
+padding-right = 0
+offset-y = 18
+offset-x = 680
+
+font-0 = FiraCode Nerd Font:style=bold:pixelsize=16;2
+
+modules-left = previous playpause next
+modules-center =
+modules-right = 
+
+[bar/tags]
+monitor = HDMI-1
+bottom = false
+background = ${colors.background}
+foreground = ${colors.foreground}
+border-size = 0
+border-color = #3c2b22
+fixed-center = true
+width = 15%
+height = 35
+radius = 1.0
+padding-left = 1
+padding-right = 1
+offset-y = 16
+offset-x = 815
+
+font-0 = FiraCode Nerd Font:style=bold:pixelsize=13;2
+
+modules-left = 
+modules-center = herbstluftwm
+modules-right = 
+
+[module/previous]
+type = custom/script
+format-font = 3
+format-padding = 0
+format-padding-left = 1
+format-background = ${colors.ctrlbg}
+format-foreground = ${colors.background-alt}
+exec = echo "玲"
+exec-if = "pgrep spotify"
+click-left = "playerctl previous"
+
+
+[module/next]
+type = custom/script
+format-font = 3
+format-padding = 0
+format-background = ${colors.ctrlbg}
+format-foreground = ${colors.background-alt}
+exec = echo "怜"
+exec-if = "pgrep spotify"
+click-left = "playerctl next"
+
+[module/playpause]
+type = custom/script
+exec = echo ""
+exec-if = "pgrep spotify"
+format-font = 1
+format-background = ${colors.ctrlbg}
+format-foreground = ${colors.background-alt}
+format-padding = 1
+tail = true
+interval = 20
+click-left = "playerctl -p spotify play-pause"
+
+
+[module/herbstluftwm]
+type = internal/xworkspaces
+
+pin-workspaces = true
+enable-click = true
+enable-scroll = true
+reverse-scroll = true
+
+format = <label-state>
+label-monitor = %name%
+
+label-active = 
+label-active-foreground = ${colors.foreground}
+label-active-background = ${colors.background}
+label-active-padding = 1
+
+label-occupied = 
+label-occupied-background = ${colors.background}
+label-occupied-padding = 1
+
+label-urgent = 
+label-urgent-foreground = ${colors.foreground}
+label-urgent-background = ${colors.prefix}
+label-urgent-padding = 1
+
+label-empty = 
+label-empty-foreground = ${colors.foreground}
+label-empty-padding = 1
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+
+; vim:ft=dosini

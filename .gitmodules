@@ -1,0 +1,6 @@
+[submodule "nixos/config/awesome/bling"]
+	path = nixos/config/awesome/bling
+	url = https://github.com/Nooo37/bling.git
+[submodule "nixos/config/awesome/collision"]
+	path = nixos/config/awesome/collision
+	url = https://github.com/Elv13/collision.git

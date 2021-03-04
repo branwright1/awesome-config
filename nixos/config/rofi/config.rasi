@@ -1,0 +1,10 @@
+configuration {
+	font: "Dina 9";
+	show-icons: false;
+	sidebar-mode: true;
+	theme: "~/.config/rofi/themes/sidetab-tlou2.rasi";
+	display-window: "Windows";
+	display-run: "Commands";
+	display-ssh: "Servers";
+	display-drun: "Apps";
+}

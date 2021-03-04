@@ -63,9 +63,21 @@ end)
 
 
 -- Load wallpaper from themes folder
-gears.wallpaper.maximized(gears.filesystem.get_configuration_dir() .. "assets/wallpapers/house-wall.png", s, false, nil)
+screen.connect_signal("request::wallpaper", function(s)
+    bling.module.tiled_wallpaper("☘", s, {
+        fg = "#FFFFFF",
+        bg = "#009e60",
+        offset_y = 27,
+        offset_x = 0,
+        font = "Unifont",
+        font_size = 23,
+        padding = 99,
+        zickzack = true
+    })
 
+    gears.wallpaper.maximized(gears.filesystem.get_configuration_dir() .. "assets/wallpapers/house-wall.png", s, false, nil)
 
+end)
 -- Focus on click
 client.connect_signal("focus", 
     function(c) 
