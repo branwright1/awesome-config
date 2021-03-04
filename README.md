@@ -1,9 +1,9 @@
 # System Configuration files for NixOS and macOS
 
-#### NixOS config:
+#### **NixOS config**:
 - alacritty as terminal
-- awesomeW as window manager
-- herbstluftwm as second window manager
+- awesome as window manager
+- herbstluftwm as window manager
 - disocss as css injector for discord
 - dunst as notification daemon (only hlwm)
 - neovim as editor
@@ -13,5 +13,5 @@
 - sxhkd as hotkey daemon (only hlwm)
 - zathura as as pdf viewer
 
-#### macOS config:
+#### **macOS config**:
 - Empty (for now)
