@@ -1,4 +1,5 @@
 pcall(require, "luarocks.loader")
+collectgarbage("step", 1024)
 
 local awful = require("awful")
 local gears = require("gears")
@@ -16,7 +17,7 @@ end)
 
 
 -- Initialize selected theme.
-beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/tlou2.lua")
+beautiful.init(gears.filesystem.get_configuration_dir() .. "settings/themes/tlou2.lua")
 
 
 -- Load external modules.
@@ -25,59 +26,46 @@ require("collision")()
 
 bling.module.flash_focus.enable()
 
--- Variables for keys.lua
-modkey = "Mod1"
-shiftkey = "Shift"
-controlkey = "Control"
-
--- Variables for /decorations/menubar.lua
-terminal = "alacritty"
-editor = "nvim"
-editor_cmd = terminal .. " -e " .. editor
-shoot = "flameshot gui"
-browser = "qutebrowser"
-spotify = "spotify"
-discord = "Discord"
-telegram = "telegram-desktop"
-
 
 -- Define tag names
 screen.connect_signal("request::desktop_decoration", function(s)
-    awful.tag.add("1", {
+    awful.tag.add("code", {
         gap = 12,
         screem = s,
-        layout = bling.layout.vertical,
+        layout = awful.layout.suit.floating,
     })
-    awful.tag.add("2", {
+    awful.tag.add("home", {
         gap = 0,
         screen = s,
         selected = true,
         layout = awful.layout.suit.floating,
     })
-    awful.tag.add("3", {
+    awful.tag.add("qemu", {
         gap = 12,
         screen = s,
-        layout = bling.layout.equalarea,
+        layout = bling.layout.vertical,
     })
 end)
 
 
--- Load wallpaper from themes folder
+-- Load wallpaper from assets folder
 screen.connect_signal("request::wallpaper", function(s)
-    bling.module.tiled_wallpaper("☘", s, {
-        fg = "#FFFFFF",
-        bg = "#009e60",
-        offset_y = 27,
-        offset_x = 0,
-        font = "Unifont",
-        font_size = 23,
-        padding = 99,
-        zickzack = true
-    })
+--    bling.module.tiled_wallpaper("☘", s, {
+--        fg = "#FFFFFF",
+--        bg = "#009e60",
+--        offset_y = 27,
+--        offset_x = 0,
+--        font = "Unifont",
+--        font_size = 23,
+--        padding = 99,
+--        zickzack = true
+--    })
 
     gears.wallpaper.maximized(gears.filesystem.get_configuration_dir() .. "assets/wallpapers/house-wall.png", s, false, nil)
 
 end)
+
+
 -- Focus on click
 client.connect_signal("focus", 
     function(c) 
@@ -89,9 +77,6 @@ client.connect_signal("unfocus",
         c.border_color = beautiful.border_normal 
 end)
 
+
 -- Load modules
-require("keys") -- keybindings
-require("rules") -- rules for clients and notifs
-require("windows") -- extended window placement
-require("autostart") -- Stolen from JavaCafe01 :)
-require("decorations") -- bars, menus, titlebars etc.
+require("settings")

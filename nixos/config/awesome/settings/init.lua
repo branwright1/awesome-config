@@ -1,0 +1,8 @@
+require("settings.autostart")
+require("settings.decorations.menubar")
+require("settings.decorations.naughty")
+require("settings.decorations.titlebar")
+require("settings.keybinds")
+require("settings.rules.clients")
+require("settings.rules.notifs")
+require("settings.windows.placement")
