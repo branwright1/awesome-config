@@ -1,4 +1,4 @@
-# System Configuration files for NixOS and macOS
+## System Configuration files for NixOS and macOS
 
 #### **NixOS config**:
 - alacritty as terminal
