@@ -26,30 +26,31 @@ require("collision")()
 
 bling.module.flash_focus.enable()
 
-
 -- Define tag names
-screen.connect_signal("request::desktop_decoration", function(s)
-    awful.tag.add("code", {
-        gap = 12,
-        screem = s,
-        layout = awful.layout.suit.floating,
-    })
-    awful.tag.add("home", {
-        gap = 0,
-        screen = s,
-        selected = true,
-        layout = awful.layout.suit.floating,
-    })
-    awful.tag.add("qemu", {
-        gap = 12,
-        screen = s,
-        layout = bling.layout.vertical,
-    })
+screen.connect_signal("request::desktop_decoration", 
+    function(s)
+        awful.tag.add("code", {
+            gap = 12,
+            screem = s,
+            layout = awful.layout.suit.tile,
+        })
+        awful.tag.add("home", {
+            gap = 0,
+            screen = s,
+            selected = true,
+            layout = awful.layout.suit.floating,
+        })
+        awful.tag.add("web", {
+            gap = 12,
+            screen = s,
+            layout = bling.layout.vertical,
+        })
 end)
 
 
 -- Load wallpaper from assets folder
-screen.connect_signal("request::wallpaper", function(s)
+screen.connect_signal("request::wallpaper", 
+    function(s)
 --    bling.module.tiled_wallpaper("☘", s, {
 --        fg = "#FFFFFF",
 --        bg = "#009e60",

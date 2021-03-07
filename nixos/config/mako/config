@@ -1,0 +1,22 @@
+font=Dina 10
+
+background-color=#1B1915
+text-color=#79695a
+padding=8
+margin=32
+progress-color=over #3E2D23
+max-icon-size=40
+anchor=top-right
+height=90
+width=280
+
+border-size=4
+border-radius=0
+border-color=#3E2D23
+
+default-timeout=5000
+layer=overlay
+
+[urgency=high]
+ignore-timeout=1
+

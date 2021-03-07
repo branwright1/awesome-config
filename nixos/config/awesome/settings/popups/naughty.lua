@@ -15,7 +15,7 @@ naughty.config.defaults.title = "System Notification"
 naughty.config.defaults.margin = dpi(13)
 naughty.config.defaults.border_width = 2
 naughty.config.defaults.border_color = beautiful.border_normal
-naughty.config.defaults.position = "top_left"
+naughty.config.defaults.position = "top_right"
 
 naughty.config.padding = dpi(22)
 naughty.config.spacing = dpi(10)

@@ -65,7 +65,7 @@ awful.keyboard.append_global_keybindings({
         group = "Launcher",
         description = "Run menubar",
         on_press = function()
-            menubar.show()
+            awful.spawn("rofi -show")
         end,
     },
 })

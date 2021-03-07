@@ -48,7 +48,7 @@ let s:orange        = ['#585c49', 202]
 let s:bright_orange = ['#6d715e', 208]
 let s:hard_black    = ['#121212', 233]
 let s:xgray1        = ['#262626', 235]
-let s:xgray2        = ['#303030', 236]
+let s:xgray2        = ['#272520', 236]
 let s:xgray3        = ['#3A3A3A', 237]
 let s:xgray4        = ['#444444', 238]
 let s:xgray5        = ['#443a36', 239]
@@ -490,7 +490,7 @@ if v:version >= 700
   " Popup menu: normal item
   call s:HL('Pmenu', s:bright_white, s:xgray2)
   " Popup menu: selected item
-  call s:HL('PmenuSel', s:bright_white, s:magenta, s:bold)
+  call s:HL('PmenuSel', s:xgray2, s:cyan, s:bold)
 
   if g:tlou2_transparent_background == 1 && !has('gui_running')
     " Popup menu: scrollbar

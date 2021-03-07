@@ -1,0 +1,6 @@
+[output HDMI-A-1]
+image=/home/bran/a.gif
+filter=best
+scaling-mode=fill
+anchor=center
+
