@@ -7,16 +7,10 @@ local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 local naughty = require("naughty")
 local theme = {}
--- local theme = dofile(themes_path .. "default/theme.lua") -- inherit default theme
-local config_path = os.getenv("HOME") .. "/.config/awesome/"
-
-
--- Wallpaper
-theme.wallpaper = "~/Wallpapers/wallhaven-5weoz7.png"
 
 -- Global font
-theme.font = "Dina Bold 10"
-theme.font_notifs = "Dina 10"
+theme.font = "Pragmata Pro Bold 10"
+theme.font_notifs = "Pragmata Pro 10"
 
 -- Wibar Settigs
 theme.wibar_height = dpi(27)
@@ -46,6 +40,7 @@ theme.border_radius = dpi(8)
 theme.border_focus = "#3E2D23"
 theme.border_normal  = "#3c2b22"
 theme.border_marked = "#3c2b22"
+theme.useless_gap = dpi(12)
 theme.snap_border_width = dpi(3)
 theme.snap_border_color = "#3c2b22"
 
@@ -84,8 +79,8 @@ theme.notification_border_color = theme.border_focus
 
 -- Bling tabbar settings
 theme.tabbed_spawn_in_tab = true
-theme.tabbar_style = "default"
-theme.tabbar_size = dpi(28)
+theme.tabbar_style = "modern"
+theme.tabbar_size = dpi(40)
 theme.tabbar_ontop  = true
 theme.tabbar_position = "top"
 theme.tabbar_color_close = "#674441"
@@ -97,7 +92,7 @@ theme.tabbar_bg_focus  = theme.bg_normal
 theme.tabbar_fg_focus  = theme.fg_focus
 
 -- Bling mstab settings
-theme.mstab_bar_height = dpi(35) 
+theme.mstab_bar_height = dpi(35)
 theme.mstab_font = theme.font
 theme.mstab_bar_padding = dpi(24)
 theme.mstab_tabbar_position = "right"
@@ -107,11 +102,5 @@ theme.mstab_bg_focus = theme.bg_focus
 theme.mstab_fg_focus = theme.fg_focus
 theme.mstab_bg_normal = theme.bg_normal
 theme.mstab_fg_normal = theme.fg_normal
-
--- Collision
-theme.collision_focus_fg = theme.fg_normal
-theme.collision_focus_border_width = theme.border_width
-theme.collision_focus_border_color = theme.border_normal
-theme.collision_focus_bg_center = theme.fg_focus
 
 return theme

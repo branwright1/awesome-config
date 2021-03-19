@@ -1,22 +1,28 @@
 local awful = require("awful")
-local gears = require("gears")
-local bling = require("bling")
-local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
-
-
--- modifiers
-modkey = "Mod1"
-shiftkey = "Shift"
-controlkey = "Control"
 
 
 -- Mouse keybinds
 awful.mouse.append_global_mousebindings({
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
+    awful.button({ }, 3, function() mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewprev),
     awful.button({ }, 5, awful.tag.viewnext),
 })
+
+client.connect_signal("request::default_mousebindings", function()
+    awful.mouse.append_client_mousebindings({
+        awful.button({ }, 1, function (c)
+            c:activate { context = "mouse_click" }
+        end),
+        awful.button({ modkey }, 1, function (c)
+            c:activate { context = "mouse_click", action = "mouse_move"  }
+        end),
+        awful.button({ modkey }, 3, function (c)
+            c:activate { context = "mouse_click", action = "mouse_resize"}
+        end),
+    })
+end)
+
 
 -- General Awesome keys
 awful.keyboard.append_global_keybindings({
@@ -70,40 +76,9 @@ awful.keyboard.append_global_keybindings({
     },
 })
 
--- Bling related keybindings
-awful.keyboard.append_global_keybindings({
-    awful.key {
-        modifiers = { modkey },
-        key = "t",
-        group = "Bling",
-        description = "Enable tabbed mode",
-        on_press = function()
-            bling.module.tabbed.pick() 
-        end,
-    },
-    awful.key {
-        modifiers = { modkey, shiftkey },
-        key = "t",
-        group = "Bling",
-        description = "Remove window from tabbed mode",
-        on_press = function()
-            bling.module.tabbed.pop()
-        end,
-    },
-    awful.key {
-        modifiers = { modkey },
-        key = "Tab",
-        group = "Bling",
-        description = "Iterate through tabbed windows",
-        on_press = function()
-            bling.module.tabbed.iter()
-        end,
-    },
-})
-
 -- Focus related keybindings
 awful.keyboard.append_global_keybindings({
-    awful.key { 
+    awful.key {
         modifiers = { modkey },
         key = "j",
         group = "Client",
@@ -113,7 +88,7 @@ awful.keyboard.append_global_keybindings({
         end,
     },
     awful.key {
-        modifiers = { modkey }, 
+        modifiers = { modkey },
         key = "k",
         group = "Client",
         description = "Focus previous by index",
@@ -135,15 +110,15 @@ awful.keyboard.append_global_keybindings({
     },
     awful.key{
         modifiers = { modkey, controlkey },
-        key = "j", 
-        group = "Screen", 
+        key = "j",
+        group = "Screen",
         description = "Focus next screen",
         on_press = function()
-            awful.screen.focus_relative( 1) 
+            awful.screen.focus_relative( 1)
         end,
     },
     awful.key {
-        modifiers = { modkey, controlkey }, 
+        modifiers = { modkey, controlkey },
         key = "k",
         group = "Screen",
         description = "focus the previous screen",
@@ -247,27 +222,9 @@ awful.keyboard.append_global_keybindings({
             awful.tag.incncol(-1, nil, true)
         end,
     },
---    awful.key {
---        modifiers = { modkey }, 
---        key = "space",
---        group = "tag",
---        description = "select next",
---        on_press = function()
---            awful.layout.inc( 1)
---        end,
---    },
---    awful.key {
---        modifiers = { modkey, shiftkey },
---        key = "space",
---        group = "tag",
---        description = "select previous",
---        on_press = function()
---            awful.layout.inc(-1)
---        end,
---    },
 })
 
-
+-- Tags
 awful.keyboard.append_global_keybindings({
     awful.key {
         modifiers   = { modkey },
@@ -337,20 +294,6 @@ awful.keyboard.append_global_keybindings({
     }
 })
 
-client.connect_signal("request::default_mousebindings", function()
-    awful.mouse.append_client_mousebindings({
-        awful.button({ }, 1, function (c)
-            c:activate { context = "mouse_click" }
-        end),
-        awful.button({ modkey }, 1, function (c)
-            c:activate { context = "mouse_click", action = "mouse_move"  }
-        end),
-        awful.button({ modkey }, 3, function (c)
-            c:activate { context = "mouse_click", action = "mouse_resize"}
-        end),
-    })
-end)
-
 client.connect_signal("request::default_keybindings", function()
     awful.keyboard.append_client_keybindings({
         awful.key({ modkey,           }, "f",
@@ -396,5 +339,3 @@ client.connect_signal("request::default_keybindings", function()
             {description = "(un)maximize horizontally", group = "client"}),
     })
 end)
-
-return keybinds

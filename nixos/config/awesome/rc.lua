@@ -1,10 +1,10 @@
 pcall(require, "luarocks.loader")
-collectgarbage("step", 1024)
 
 local awful = require("awful")
 local gears = require("gears")
 local naughty = require("naughty")
 local beautiful = require("beautiful")
+local gfs = require("gears.filesystem")
 
 -- Error on startup notification:
 naughty.connect_signal("request::display_error", function(message, startup)
@@ -17,65 +17,75 @@ end)
 
 
 -- Initialize selected theme.
-beautiful.init(gears.filesystem.get_configuration_dir() .. "settings/themes/tlou2.lua")
+local themes_path = gfs.get_configuration_dir()
+beautiful.init(themes_path .. "settings/themes/tlou2.lua")
+
+
+-- garbage collector
+collectgarbage("step", 1024)
+collectgarbage("setpause", 110)
+collectgarbage("setstepmul", 1000)
+
+
+-- modifiers
+modkey = "Mod1"
+shiftkey = "Shift"
+controlkey = "Control"
 
 
 -- Load external modules.
 local bling = require("bling")
-require("collision")()
+local walls = gfs.get_configuration_dir()
+bling.module.wallpaper.setup {
+    wallpaper = { 
+        walls .. "assets/wallpapers/house-wall.png"
+    },
+    position = maximized,
+}
 
 bling.module.flash_focus.enable()
+bling.module.window_swallowing.start()
+
 
 -- Define tag names
-screen.connect_signal("request::desktop_decoration", 
-    function(s)
-        awful.tag.add("code", {
-            gap = 12,
-            screem = s,
-            layout = awful.layout.suit.tile,
-        })
-        awful.tag.add("home", {
-            gap = 0,
-            screen = s,
-            selected = true,
-            layout = awful.layout.suit.floating,
-        })
-        awful.tag.add("web", {
-            gap = 12,
-            screen = s,
-            layout = bling.layout.vertical,
-        })
+screen.connect_signal("request::desktop_decoration", function(s)
+    awful.tag.add("code", {
+        gap = 0,
+        screem = s,
+        layout = awful.layout.suit.floating,
+    })
+    awful.tag.add("tinywl", {
+        gap = 0,
+        screem = s,
+        layout = awful.layout.suit.floating,
+    })
+    awful.tag.add("home", {
+        gap = 0,
+        screen = s,
+        selected = true,
+        layout = awful.layout.suit.floating,
+    })
+    awful.tag.add("web", {
+        gap = 0,
+        screen = s,
+        layout = awful.layout.suit.floating,
+    })
+    awful.tag.add("extra", {
+        gap = 0,
+        screem = s,
+        layout = awful.layout.suit.floating,
+    })
 end)
-
-
--- Load wallpaper from assets folder
-screen.connect_signal("request::wallpaper", 
-    function(s)
---    bling.module.tiled_wallpaper("☘", s, {
---        fg = "#FFFFFF",
---        bg = "#009e60",
---        offset_y = 27,
---        offset_x = 0,
---        font = "Unifont",
---        font_size = 23,
---        padding = 99,
---        zickzack = true
---    })
-
-    gears.wallpaper.maximized(gears.filesystem.get_configuration_dir() .. "assets/wallpapers/house-wall.png", s, false, nil)
-
-end)
-
 
 -- Focus on click
-client.connect_signal("focus", 
-    function(c) 
-        c.border_color = beautiful.border_focus 
+client.connect_signal("focus",
+    function(c)
+        c.border_color = beautiful.border_focus
 end)
 
-client.connect_signal("unfocus", 
+client.connect_signal("unfocus",
     function(c)
-        c.border_color = beautiful.border_normal 
+        c.border_color = beautiful.border_normal
 end)
 
 
