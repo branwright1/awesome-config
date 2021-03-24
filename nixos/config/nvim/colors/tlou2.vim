@@ -5,8 +5,7 @@
 " Website:      https://gitlab.com/branwright/non-flaked-nix/
 " License:      MIT
 " -----------------------------------------------------------------------------
-"
-"
+
 scriptencoding utf-8
 
 set background=dark
@@ -26,7 +25,7 @@ endif
 
 " Palette {{{
 
-let s:black          = ['#201e1a;', 0]
+let s:black          = ['#201e1a', 0]
 let s:red            = ['#674441', 1]
 let s:green          = ['#5d6051', 2]
 let s:yellow         = ['#84694e', 3]
@@ -44,8 +43,8 @@ let s:bright_cyan    = ['#4d5c5c', 14]
 let s:bright_white   = ['#79695a', 15]
 
 " xterm colors.
-let s:orange        = ['#585c49', 202]
-let s:bright_orange = ['#6d715e', 208]
+let s:orange        = ['#84603C', 202]
+let s:bright_orange = ['#84603C', 208]
 let s:hard_black    = ['#121212', 233]
 let s:xgray1        = ['#262626', 235]
 let s:xgray2        = ['#272520', 236]
@@ -99,6 +98,10 @@ if !exists('g:tlou2_dim_lisp_paren')
   let g:tlou2_dim_lisp_paren=0
 endif
 
+if !exists('g:tlou2_guisp_fallback') || index(['fg', 'bg'], g:srcery_guisp_fallback) == -1
+  let g:tlou2_guisp_fallback='NONE'
+endif
+
 " }}}
 " Setup Emphasis: {{{
 
@@ -150,6 +153,18 @@ function! s:HL(group, fg, ...)
     let l:emstr = 'NONE,'
   endif
 
+  " special fallback
+  if a:0 >= 3
+    if g:tlou2_guisp_fallback !=# 'NONE'
+      let fg = a:3
+    endif
+
+    " bg fallback mode should invert higlighting
+    if g:tlou2_guisp_fallback ==# 'bg'
+      let emstr .= 'inverse,'
+    endif
+  endif
+
   let l:histring = [ 'hi', a:group,
         \ 'guifg=' . l:fg[0], 'ctermfg=' . l:fg[1],
         \ 'guibg=' . l:bg[0], 'ctermbg=' . l:bg[1],
@@ -163,46 +178,47 @@ function! s:HL(group, fg, ...)
 
   execute join(l:histring, ' ')
 endfunction
+
 "}}}
-" tlou2 Hi Groups: {{{
+" Tlou2 Hi Groups: {{{
 
 " memoize common hi groups
-call s:HL('tlou2White', s:white)
-call s:HL('tlou2Red', s:red)
-call s:HL('tlou2Green', s:green)
-call s:HL('tlou2Yellow', s:yellow)
-call s:HL('tlou2Blue', s:blue)
-call s:HL('tlou2Magenta', s:magenta)
-call s:HL('tlou2Cyan', s:cyan)
-call s:HL('tlou2Black', s:black)
+call s:HL('Tlou2White', s:white)
+call s:HL('Tlou2Red', s:red)
+call s:HL('Tlou2Green', s:green)
+call s:HL('Tlou2Yellow', s:yellow)
+call s:HL('Tlou2Blue', s:blue)
+call s:HL('Tlou2Magenta', s:magenta)
+call s:HL('Tlou2Cyan', s:cyan)
+call s:HL('Tlou2Black', s:black)
 
-call s:HL('tlou2RedBold', s:red, s:none, s:bold)
-call s:HL('tlou2GreenBold', s:green, s:none, s:bold)
-call s:HL('tlou2YellowBold', s:yellow, s:none, s:bold)
-call s:HL('tlou2BlueBold', s:blue, s:none, s:bold)
-call s:HL('tlou2MagentaBold', s:magenta, s:none, s:bold)
-call s:HL('tlou2CyanBold', s:cyan, s:none, s:bold)
+call s:HL('Tlou2RedBold', s:red, s:none, s:bold)
+call s:HL('Tlou2GreenBold', s:green, s:none, s:bold)
+call s:HL('Tlou2YellowBold', s:yellow, s:none, s:bold)
+call s:HL('Tlou2BlueBold', s:blue, s:none, s:bold)
+call s:HL('Tlou2MagentaBold', s:magenta, s:none, s:bold)
+call s:HL('Tlou2CyanBold', s:cyan, s:none, s:bold)
 
-call s:HL('tlou2BrightRed', s:bright_red, s:none)
-call s:HL('tlou2BrightGreen', s:bright_green, s:none)
-call s:HL('tlou2BrightYellow', s:bright_yellow, s:none)
-call s:HL('tlou2BrightBlue', s:bright_blue, s:none)
-call s:HL('tlou2BrightMagenta', s:bright_magenta, s:none)
-call s:HL('tlou2BrightCyan', s:bright_cyan, s:none)
-call s:HL('tlou2BrightBlack', s:bright_black, s:none)
-call s:HL('tlou2BrightWhite', s:bright_white)
+call s:HL('Tlou2BrightRed', s:bright_red, s:none)
+call s:HL('Tlou2BrightGreen', s:bright_green, s:none)
+call s:HL('Tlou2BrightYellow', s:bright_yellow, s:none)
+call s:HL('Tlou2BrightBlue', s:bright_blue, s:none)
+call s:HL('Tlou2BrightMagenta', s:bright_magenta, s:none)
+call s:HL('Tlou2BrightCyan', s:bright_cyan, s:none)
+call s:HL('Tlou2BrightBlack', s:bright_black, s:none)
+call s:HL('Tlou2BrightWhite', s:bright_white)
 
 " special
-call s:HL('tlou2Orange', s:orange)
-call s:HL('tlou2BrightOrange', s:bright_orange)
-call s:HL('tlou2OrangeBold', s:orange, s:none, s:bold)
-call s:HL('tlou2HardBlack', s:hard_black)
-call s:HL('tlou2Xgray1', s:xgray1)
-call s:HL('tlou2Xgray2', s:xgray2)
-call s:HL('tlou2Xgray3', s:xgray3)
-call s:HL('tlou2Xgray4', s:xgray4)
-call s:HL('tlou2Xgray5', s:xgray5)
-call s:HL('tlou2Xgray6', s:xgray6)
+call s:HL('Tlou2Orange', s:orange)
+call s:HL('Tlou2BrightOrange', s:bright_orange)
+call s:HL('Tlou2OrangeBold', s:orange, s:none, s:bold)
+call s:HL('Tlou2HardBlack', s:hard_black)
+call s:HL('Tlou2Xgray1', s:xgray1)
+call s:HL('Tlou2Xgray2', s:xgray2)
+call s:HL('Tlou2Xgray3', s:xgray3)
+call s:HL('Tlou2Xgray4', s:xgray4)
+call s:HL('Tlou2Xgray5', s:xgray5)
+call s:HL('Tlou2Xgray6', s:xgray6)
 
 " }}}
 " Setup Terminal Colors For Neovim: {{{
@@ -283,16 +299,8 @@ if v:version >= 700
   " Screen column that the cursor is
   hi! link CursorColumn CursorLine
 
-
-  if g:tlou2_transparent_background == 1 && !has('gui_running')
-    " Tab pages line filler
-    call s:HL('TabLineFill', s:green, s:none)
-    " Active tab page label
-    call s:HL('TabLineSel', s:red, s:none, s:bold)
-  else
-    call s:HL('TabLineFill', s:green, s:black)
-    call s:HL('TabLineSel', s:red, s:black, s:bold)
-  endif
+  call s:HL('TabLineFill', s:bright_black, s:xgray2)
+  call s:HL('TabLineSel', s:bright_white, s:xgray5)
 
   " Not active tab page label
   hi! link TabLine TabLineFill
@@ -322,8 +330,8 @@ if v:version >= 703
 
 endif
 
-hi! link NonText tlou2Xgray4
-hi! link SpecialKey tlou2Xgray4
+hi! link NonText Tlou2Xgray4
+hi! link SpecialKey Tlou2Blue
 
 if g:tlou2_inverse == 1
   call s:HL('Visual', s:none, s:none, s:inverse)
@@ -333,7 +341,7 @@ endif
 
 hi! link VisualNOS Visual
 
-if g:tlou2_inverse == 1 && g:tlou2_inverse_matches == 1
+if g:tlou2_inverse == 1 && g:srcery_inverse_matches == 1
   call s:HL('Search', s:none, s:none, s:inverse)
   call s:HL('IncSearch', s:none, s:none, s:inverse)
 else
@@ -360,21 +368,21 @@ else
 endif
 
 " Directory names, special names in listing
-hi! link Directory tlou2GreenBold
+hi! link Directory Tlou2GreenBold
 
 " Titles for output from :set all, :autocmd, etc.
-hi! link Title tlou2GreenBold
+hi! link Title Tlou2GreenBold
 
 " Error messages on the command line
 call s:HL('ErrorMsg', s:bright_white, s:red)
 " More prompt: -- More --
-hi! link MoreMsg tlou2YellowBold
+hi! link MoreMsg Tlou2YellowBold
 " Current mode message: -- INSERT --
-hi! link ModeMsg tlou2YellowBold
+hi! link ModeMsg Tlou2YellowBold
 " 'Press enter' prompt and yes/no questions
-hi! link Question tlou2OrangeBold
+hi! link Question Tlou2OrangeBold
 " Warning messages
-hi! link WarningMsg tlou2RedBold
+hi! link WarningMsg Tlou2RedBold
 
 " }}}
 " Gutter: {{{
@@ -411,7 +419,7 @@ hi! link lCursor Cursor
 " }}}
 " Syntax Highlighting: {{{
 
-hi! link Special tlou2Orange
+hi! link Special Tlou2Orange
 
 call s:HL('Comment', s:bright_black, s:none, s:italic)
 
@@ -427,61 +435,68 @@ call s:HL('Error', s:bright_white, s:red, s:bold)
 call s:HL('String',  s:bright_green)
 
 " Generic statement
-hi! link Statement tlou2Red
+hi! link Statement Tlou2Red
 " if, then, else, endif, swicth, etc.
-hi! link Conditional tlou2Red
+hi! link Conditional Tlou2Red
 " for, do, while, etc.
-hi! link Repeat tlou2Red
+hi! link Repeat Tlou2Red
 " case, default, etc.
-hi! link Label tlou2Red
+hi! link Label Tlou2Red
 " try, catch, throw
-hi! link Exception tlou2Red
+hi! link Exception Tlou2Red
 " sizeof, "+", "*", etc.
 hi! link Operator Normal
 " Any other keyword
-hi! link Keyword tlou2Red
+hi! link Keyword Tlou2Red
 
 " Variable name
-hi! link Identifier tlou2Cyan
+hi! link Identifier Tlou2Cyan
 " Function name
-hi! link Function tlou2Yellow
+hi! link Function Tlou2Yellow
 
 " Generic preprocessor
-hi! link PreProc tlou2Cyan
+hi! link PreProc Tlou2Cyan
 " Preprocessor #include
-hi! link Include tlou2Cyan
+hi! link Include Tlou2Cyan
 " Preprocessor #define
-hi! link Define tlou2Cyan
+hi! link Define Tlou2Cyan
 " Same as Define
-hi! link Macro tlou2Orange
+hi! link Macro Tlou2Orange
 " Preprocessor #if, #else, #endif, etc.
-hi! link PreCondit tlou2Cyan
+hi! link PreCondit Tlou2Cyan
 
 " Generic constant
-hi! link Constant tlou2BrightMagenta
+hi! link Constant Tlou2BrightMagenta
 " Character constant: 'c', '/n'
-hi! link Character tlou2BrightMagenta
+hi! link Character Tlou2BrightMagenta
 " Boolean constant: TRUE, false
-hi! link Boolean tlou2BrightMagenta
+hi! link Boolean Tlou2BrightMagenta
 " Number constant: 234, 0xff
-hi! link Number tlou2BrightMagenta
+hi! link Number Tlou2BrightMagenta
 " Floating point constant: 2.3e10
-hi! link Float tlou2BrightMagenta
+hi! link Float Tlou2BrightMagenta
 
 " Generic type
-hi! link Type tlou2BrightBlue
+if get(g:, 'tlou2_italic_types', 0) == 1
+  call s:HL('Type', s:bright_blue, s:none, s:italic)
+else
+  hi! link Type Tlou2BrightBlue
+end
 " static, register, volatile, etc
-hi! link StorageClass tlou2Orange
+hi! link StorageClass Tlou2Orange
 " struct, union, enum, etc.
-hi! link Structure tlou2Cyan
+hi! link Structure Tlou2Cyan
 " typedef
-hi! link Typedef tlou2Magenta
+hi! link Typedef Tlou2Magenta
 
 if g:tlou2_dim_lisp_paren == 1
-  hi! link Delimiter tlou2Xgray6
+  hi! link Delimiter Tlou2Xgray6
 else
-  hi! link Delimiter tlou2BrightBlack
+  hi! link Delimiter Tlou2BrightBlack
 endif
+
+" Treesitter
+call s:HL('TSParameter', s:cyan, s:none, s:italic)
 
 " }}}
 " Completion Menu: {{{
@@ -490,7 +505,7 @@ if v:version >= 700
   " Popup menu: normal item
   call s:HL('Pmenu', s:bright_white, s:xgray2)
   " Popup menu: selected item
-  call s:HL('PmenuSel', s:xgray2, s:cyan, s:bold)
+  call s:HL('PmenuSel', s:black, s:green, s:bold)
 
   if g:tlou2_transparent_background == 1 && !has('gui_running')
     " Popup menu: scrollbar
@@ -542,6 +557,18 @@ if has('terminal')
 endif
 
 " }}}
+" Neovim's builtin LSP: {{{
+
+hi! link LspDiagnosticsDefaultError Tlou2BrightRed
+hi! link LspDiagnosticsDefaultWarning Tlou2BrightYellow
+hi! link LspDiagnosticsDefaultInformation Tlou2BrightGreen
+hi! link LspDiagnosticsDefaultHint Tlou2BrightCyan
+call s:HL('LspDiagnosticsUnderlineError', s:bright_red, s:none, s:underline)
+call s:HL('LspDiagnosticsUnderlineWarning', s:bright_yellow, s:none, s:underline)
+call s:HL('LspDiagnosticsUnderlineInformation', s:bright_green, s:none, s:underline)
+call s:HL('LspDiagnosticsUnderlineHint', s:bright_cyan, s:none, s:underline)
+
+" }}}
 
 " Plugin specific -------------------------------------------------------------
 " Sneak: {{{
@@ -580,16 +607,16 @@ let g:niji_light_colours = g:rbpt_colorpairs
 "}}}
 " GitGutter: {{{
 
-hi! link GitGutterAdd tlou2Green
-hi! link GitGutterChange tlou2Yellow
-hi! link GitGutterDelete tlou2Red
-hi! link GitGutterChangeDelete tlou2Yellow
+hi! link GitGutterAdd Tlou2Green
+hi! link GitGutterChange Tlou2Yellow
+hi! link GitGutterDelete Tlou2Red
+hi! link GitGutterChangeDelete Tlou2Yellow
 
 " }}}
 " GitCommit: "{{{
 
-hi! link gitcommitSelectedFile tlou2Green
-hi! link gitcommitDiscardedFile tlou2Red
+hi! link gitcommitSelectedFile Tlou2Green
+hi! link gitcommitDiscardedFile Tlou2Red
 
 " }}}
 " Asynchronous Lint Engine: {{{
@@ -598,15 +625,15 @@ call s:HL('ALEError', s:none, s:none, s:undercurl, s:red)
 call s:HL('ALEWarning', s:none, s:none, s:undercurl, s:yellow)
 call s:HL('ALEInfo', s:none, s:none, s:undercurl, s:blue)
 
-hi! link ALEErrorSign tlou2Red
-hi! link ALEWarningSign tlou2Yellow
-hi! link ALEInfoSign tlou2Blue
+hi! link ALEErrorSign Tlou2Red
+hi! link ALEWarningSign Tlou2Yellow
+hi! link ALEInfoSign Tlou2Blue
 
 " }}}
 " vim-indent-guides: {{{
 
-call s:HL('IndentGuidesEven', s:none, s:bright_black)
-call s:HL('IndentGuidesOdd',  s:none, s:bright_black)
+call s:HL('IndentGuidesEven', s:none, s:xgray3)
+call s:HL('IndentGuidesOdd',  s:none, s:xgray4)
 
 " }}}
 " vim-startify {{{
@@ -631,36 +658,36 @@ call s:HL('fzf3', s:bright_white, s:xgray2)
 "}}}
 " Netrw: {{{
 
-hi! link netrwDir tlou2Cyan
-hi! link netrwClassify tlou2Cyan
-hi! link netrwLink tlou2BrightBlack
-hi! link netrwSymLink tlou2White
-hi! link netrwExe tlou2Yellow
-hi! link netrwComment tlou2BrightBlack
-hi! link netrwList tlou2Blue
-hi! link netrwTreeBar tlou2BrightBlack
-hi! link netrwHelpCmd tlou2Cyan
-hi! link netrwVersion tlou2Green
-hi! link netrwCmdSep tlou2BrightBlack
+hi! link netrwDir Tlou2Blue
+hi! link netrwClassify Tlou2Cyan
+hi! link netrwLink Tlou2BrightBlack
+hi! link netrwSymLink Tlou2Cyan
+hi! link netrwExe Tlou2Yellow
+hi! link netrwComment Tlou2BrightBlack
+hi! link netrwList Tlou2BrightBlue
+hi! link netrwTreeBar Tlou2BrightBlack
+hi! link netrwHelpCmd Tlou2Cyan
+hi! link netrwVersion Tlou2Green
+hi! link netrwCmdSep Tlou2BrightBlack
 
 "}}}
 " coc.nvim: {{{
 
-hi! link CocErrorSign tlou2Red
-hi! link CocWarningSign tlou2BrightOrange
-hi! link CocInfoSign tlou2Yellow
-hi! link CocHintSign tlou2Blue
-hi! link CocErrorFloat tlou2Red
-hi! link CocWarningFloat tlou2Orange
-hi! link CocInfoFloat tlou2Yellow
-hi! link CocHintFloat tlou2Blue
-hi! link CocDiagnosticsError tlou2Red
-hi! link CocDiagnosticsWarning tlou2Orange
-hi! link CocDiagnosticsInfo tlou2Yellow
-hi! link CocDiagnosticsHint tlou2Blue
+hi! link CocErrorSign Tlou2Red
+hi! link CocWarningSign Tlou2BrightOrange
+hi! link CocInfoSign Tlou2Yellow
+hi! link CocHintSign Tlou2Blue
+hi! link CocErrorFloat Tlou2Red
+hi! link CocWarningFloat Tlou2Orange
+hi! link CocInfoFloat Tlou2Yellow
+hi! link CocHintFloat Tlou2Blue
+hi! link CocDiagnosticsError Tlou2Red
+hi! link CocDiagnosticsWarning Tlou2Orange
+hi! link CocDiagnosticsInfo Tlou2Yellow
+hi! link CocDiagnosticsHint Tlou2Blue
 
-hi! link CocSelectedText tlou2Red
-hi! link CocCodeLens tlou2White
+hi! link CocSelectedText Tlou2Red
+hi! link CocCodeLens Tlou2White
 
 call s:HL('CocErrorHighlight', s:none, s:none, s:undercurl, s:red)
 call s:HL('CocWarningHighlight', s:none, s:none, s:undercurl, s:bright_orange)
@@ -669,42 +696,69 @@ call s:HL('CocHintHighlight', s:none, s:none, s:undercurl, s:blue)
 
 " }}}
 " CtrlP: "{{{
-hi! link CtrlPMatch tlou2Magenta
-hi! link CtrlPLinePre tlou2BrightGreen
+"
+hi! link CtrlPMatch Tlou2Magenta
+hi! link CtrlPLinePre Tlou2BrightGreen
 call s:HL('CtrlPMode1', s:bright_white, s:xgray3)
 call s:HL('CtrlPMode2', s:bright_white, s:xgray5)
 call s:HL('CtrlPStats', s:yellow, s:xgray2)
+
+" }}}
+" NERDTree: "{{{
+
+hi! link NERDTreeDir Tlou2Blue
+hi! link NERDTreeDirSlash Tlou2Cyan
+hi! link NERDTreeOpenable Tlou2Blue
+hi! link NERDTreeClosable Tlou2Blue
+hi! link NERDTreeFile Tlou2White
+hi! link NERDTreeExecFile Tlou2Yellow
+hi! link NERDTreeUp Tlou2Orange
+hi! link NERDTreeCWD Tlou2Green
+hi! link NERDTreeHelp Tlou2Cyan
+hi! link NERDTreeFlags Tlou2Cyan
+hi! link NERDTreeLinkFile Tlou2BrightBlack
+hi! link NERDTreeLinkTarget Tlou2BrightBlack
+
+" }}}
+" Telescope: "{{{
+
+call s:HL('TelescopeNormal', s:white, s:none)
+call s:HL('TelescopeSelection', s:green, s:none, s:bold)
+call s:HL('TelescopeMatching', s:magenta)
+call s:HL('TelescopeSelectionCaret', s:magenta)
+call s:HL('TelescopePromptPrefix', s:bright_yellow)
+
 " }}}
 
 " Filetype specific -----------------------------------------------------------
 " Diff: {{{
 
-hi! link diffAdded tlou2Green
-hi! link diffRemoved tlou2Red
-hi! link diffChanged tlou2Cyan
+hi! link diffAdded Tlou2Green
+hi! link diffRemoved Tlou2Red
+hi! link diffChanged Tlou2Cyan
 
-hi! link diffFile tlou2Orange
-hi! link diffNewFile tlou2Yellow
+hi! link diffFile Tlou2Orange
+hi! link diffNewFile Tlou2Yellow
 
-hi! link diffLine tlou2Blue
+hi! link diffLine Tlou2Blue
 
 " }}}
 " Html: {{{
 
-hi! link htmlTag tlou2Blue
-hi! link htmlEndTag tlou2Blue
+hi! link htmlTag Tlou2Blue
+hi! link htmlEndTag Tlou2Blue
 
-hi! link htmlTagName tlou2Blue
-hi! link htmlTag tlou2BrightBlack
-hi! link htmlArg tlou2Yellow
+hi! link htmlTagName Tlou2Blue
+hi! link htmlTag Tlou2BrightBlack
+hi! link htmlArg Tlou2Yellow
 
-hi! link htmlScriptTag tlou2Red
-hi! link htmlTagN tlou2Blue
-hi! link htmlSpecialTagName tlou2Blue
+hi! link htmlScriptTag Tlou2Red
+hi! link htmlTagN Tlou2Blue
+hi! link htmlSpecialTagName Tlou2Blue
 
 call s:HL('htmlLink', s:bright_white, s:none, s:underline)
 
-hi! link htmlSpecialChar tlou2Yellow
+hi! link htmlSpecialChar Tlou2Yellow
 
 if g:tlou2_transparent_background == 1 && !has('gui_running')
   call s:HL('htmlBold', s:bright_white, s:none, s:bold)
@@ -724,296 +778,298 @@ else
   call s:HL('htmlItalic', s:bright_white, s:black, s:italic)
 endif
 
-
 " }}}
 " Xml: {{{
 
-hi! link xmlTag tlou2Blue
-hi! link xmlEndTag tlou2Blue
-hi! link xmlTagName tlou2Blue
-hi! link xmlEqual tlou2Blue
-hi! link docbkKeyword tlou2CyanBold
+hi! link xmlTag Tlou2Blue
+hi! link xmlEndTag Tlou2Blue
+hi! link xmlTagName Tlou2Blue
+hi! link xmlEqual Tlou2Blue
+hi! link docbkKeyword Tlou2CyanBold
 
-hi! link xmlDocTypeDecl tlou2BrightBlack
-hi! link xmlDocTypeKeyword tlou2Magenta
-hi! link xmlCdataStart tlou2BrightBlack
-hi! link xmlCdataCdata tlou2Magenta
-hi! link dtdFunction tlou2BrightBlack
-hi! link dtdTagName tlou2Magenta
+hi! link xmlDocTypeDecl Tlou2BrightBlack
+hi! link xmlDocTypeKeyword Tlou2Magenta
+hi! link xmlCdataStart Tlou2BrightBlack
+hi! link xmlCdataCdata Tlou2Magenta
+hi! link dtdFunction Tlou2BrightBlack
+hi! link dtdTagName Tlou2Magenta
 
-hi! link xmlAttrib tlou2Cyan
-hi! link xmlProcessingDelim tlou2BrightBlack
-hi! link dtdParamEntityPunct tlou2BrightBlack
-hi! link dtdParamEntityDPunct tlou2BrightBlack
-hi! link xmlAttribPunct tlou2BrightBlack
+hi! link xmlAttrib Tlou2Cyan
+hi! link xmlProcessingDelim Tlou2BrightBlack
+hi! link dtdParamEntityPunct Tlou2BrightBlack
+hi! link dtdParamEntityDPunct Tlou2BrightBlack
+hi! link xmlAttribPunct Tlou2BrightBlack
 
-hi! link xmlEntity tlou2Yellow
-hi! link xmlEntityPunct tlou2Yellow
+hi! link xmlEntity Tlou2Yellow
+hi! link xmlEntityPunct Tlou2Yellow
+
 " }}}
 " Vim: {{{
 
 call s:HL('vimCommentTitle', s:bright_white, s:none, s:bold . s:italic)
 
-hi! link vimNotation tlou2Yellow
-hi! link vimBracket tlou2Yellow
-hi! link vimMapModKey tlou2Yellow
-hi! link vimFuncSID tlou2BrightWhite
-hi! link vimSetSep tlou2BrightWhite
-hi! link vimSep tlou2BrightWhite
-hi! link vimContinue tlou2BrightWhite
+hi! link vimNotation Tlou2Yellow
+hi! link vimBracket Tlou2Yellow
+hi! link vimMapModKey Tlou2Yellow
+hi! link vimFuncSID Tlou2BrightWhite
+hi! link vimSetSep Tlou2BrightWhite
+hi! link vimSep Tlou2BrightWhite
+hi! link vimContinue Tlou2BrightWhite
 
 " }}}
 " Lisp dialects: {{{
+
 if g:tlou2_dim_lisp_paren == 1
-  hi! link schemeParentheses tlou2Xgray6
-  hi! link clojureParen tlou2Xgray6
+  hi! link schemeParentheses Tlou2Xgray6
+  hi! link clojureParen Tlou2Xgray6
 else
-  hi! link schemeParentheses tlou2BrightBlack
-  hi! link clojureParen tlou2BrightBlack
+  hi! link schemeParentheses Tlou2BrightBlack
+  hi! link clojureParen Tlou2BrightBlack
 endif
 
-hi! link clojureKeyword tlou2Blue
-hi! link clojureCond tlou2Red
-hi! link clojureSpecial tlou2Red
-hi! link clojureDefine tlou2Red
+hi! link clojureKeyword Tlou2Blue
+hi! link clojureCond Tlou2Red
+hi! link clojureSpecial Tlou2Red
+hi! link clojureDefine Tlou2Red
 
-hi! link clojureFunc tlou2Yellow
-hi! link clojureRepeat tlou2Yellow
-hi! link clojureCharacter tlou2Cyan
-hi! link clojureStringEscape tlou2Cyan
-hi! link clojureException tlou2Red
+hi! link clojureFunc Tlou2Yellow
+hi! link clojureRepeat Tlou2Yellow
+hi! link clojureCharacter Tlou2Cyan
+hi! link clojureStringEscape Tlou2Cyan
+hi! link clojureException Tlou2Red
 
-hi! link clojureRegexp tlou2Cyan
-hi! link clojureRegexpEscape tlou2Cyan
+hi! link clojureRegexp Tlou2Cyan
+hi! link clojureRegexpEscape Tlou2Cyan
 call s:HL('clojureRegexpCharClass', s:bright_white, s:none, s:bold)
 hi! link clojureRegexpMod clojureRegexpCharClass
 hi! link clojureRegexpQuantifier clojureRegexpCharClass
 
-hi! link clojureAnonArg tlou2Yellow
-hi! link clojureVariable tlou2Blue
-hi! link clojureMacro tlou2OrangeBold
+hi! link clojureAnonArg Tlou2Yellow
+hi! link clojureVariable Tlou2Blue
+hi! link clojureMacro Tlou2OrangeBold
 
-hi! link clojureMeta tlou2Yellow
-hi! link clojureDeref tlou2Yellow
-hi! link clojureQuote tlou2Yellow
-hi! link clojureUnquote tlou2Yellow
+hi! link clojureMeta Tlou2Yellow
+hi! link clojureDeref Tlou2Yellow
+hi! link clojureQuote Tlou2Yellow
+hi! link clojureUnquote Tlou2Yellow
+
 " }}}
 " C: {{{
 
-hi! link cOperator tlou2Magenta
-hi! link cStructure tlou2Yellow
+hi! link cOperator Tlou2Magenta
+hi! link cStructure Tlou2Yellow
 
 " }}}
 " Python: {{{
 
-hi! link pythonBuiltin tlou2Yellow
-hi! link pythonBuiltinObj tlou2Yellow
-hi! link pythonBuiltinFunc tlou2Yellow
-hi! link pythonFunction tlou2Cyan
-hi! link pythonDecorator tlou2Red
-hi! link pythonInclude tlou2Blue
-hi! link pythonImport tlou2Blue
-hi! link pythonRun tlou2Blue
-hi! link pythonCoding tlou2Blue
-hi! link pythonOperator tlou2Red
-hi! link pythonExceptions tlou2Magenta
-hi! link pythonBoolean tlou2Magenta
-hi! link pythonDot tlou2BrightWhite
+hi! link pythonBuiltin Tlou2Yellow
+hi! link pythonBuiltinObj Tlou2Yellow
+hi! link pythonBuiltinFunc Tlou2Yellow
+hi! link pythonFunction Tlou2Cyan
+hi! link pythonDecorator Tlou2Red
+hi! link pythonInclude Tlou2Blue
+hi! link pythonImport Tlou2Blue
+hi! link pythonRun Tlou2Blue
+hi! link pythonCoding Tlou2Blue
+hi! link pythonOperator Tlou2Red
+hi! link pythonExceptions Tlou2Magenta
+hi! link pythonBoolean Tlou2Magenta
+hi! link pythonDot Tlou2BrightWhite
 
 " }}}
 " CSS/SASS: {{{
 
-hi! link cssBraces tlou2BrightWhite
-hi! link cssFunctionName tlou2Yellow
-hi! link cssIdentifier tlou2Blue
-hi! link cssClassName tlou2Blue
-hi! link cssClassNameDot tlou2Blue
-hi! link cssColor tlou2BrightMagenta
-hi! link cssSelectorOp tlou2Blue
-hi! link cssSelectorOp2 tlou2Blue
-hi! link cssImportant tlou2Green
-hi! link cssVendor tlou2Blue
-hi! link cssMediaProp tlou2Yellow
-hi! link cssBorderProp tlou2Yellow
-hi! link cssAttrComma tlou2BrightWhite
+hi! link cssBraces Tlou2BrightWhite
+hi! link cssFunctionName Tlou2Yellow
+hi! link cssIdentifier Tlou2Blue
+hi! link cssClassName Tlou2Blue
+hi! link cssClassNameDot Tlou2Blue
+hi! link cssColor Tlou2BrightMagenta
+hi! link cssSelectorOp Tlou2Blue
+hi! link cssSelectorOp2 Tlou2Blue
+hi! link cssImportant Tlou2Green
+hi! link cssVendor Tlou2Blue
+hi! link cssMediaProp Tlou2Yellow
+hi! link cssBorderProp Tlou2Yellow
+hi! link cssAttrComma Tlou2BrightWhite
 
-hi! link cssTextProp tlou2Yellow
-hi! link cssAnimationProp tlou2Yellow
-hi! link cssUIProp tlou2Yellow
-hi! link cssTransformProp tlou2Yellow
-hi! link cssTransitionProp tlou2Yellow
-hi! link cssPrintProp tlou2Yellow
-hi! link cssPositioningProp tlou2Yellow
-hi! link cssBoxProp tlou2Yellow
-hi! link cssFontDescriptorProp tlou2Yellow
-hi! link cssFlexibleBoxProp tlou2Yellow
-hi! link cssBorderOutlineProp tlou2Yellow
-hi! link cssBackgroundProp tlou2Yellow
-hi! link cssMarginProp tlou2Yellow
-hi! link cssListProp tlou2Yellow
-hi! link cssTableProp tlou2Yellow
-hi! link cssFontProp tlou2Yellow
-hi! link cssPaddingProp tlou2Yellow
-hi! link cssDimensionProp tlou2Yellow
-hi! link cssRenderProp tlou2Yellow
-hi! link cssColorProp tlou2Yellow
-hi! link cssGeneratedContentProp tlou2Yellow
-hi! link cssTagName tlou2BrightBlue
+hi! link cssTextProp Tlou2Yellow
+hi! link cssAnimationProp Tlou2Yellow
+hi! link cssUIProp Tlou2Yellow
+hi! link cssTransformProp Tlou2Yellow
+hi! link cssTransitionProp Tlou2Yellow
+hi! link cssPrintProp Tlou2Yellow
+hi! link cssPositioningProp Tlou2Yellow
+hi! link cssBoxProp Tlou2Yellow
+hi! link cssFontDescriptorProp Tlou2Yellow
+hi! link cssFlexibleBoxProp Tlou2Yellow
+hi! link cssBorderOutlineProp Tlou2Yellow
+hi! link cssBackgroundProp Tlou2Yellow
+hi! link cssMarginProp Tlou2Yellow
+hi! link cssListProp Tlou2Yellow
+hi! link cssTableProp Tlou2Yellow
+hi! link cssFontProp Tlou2Yellow
+hi! link cssPaddingProp Tlou2Yellow
+hi! link cssDimensionProp Tlou2Yellow
+hi! link cssRenderProp Tlou2Yellow
+hi! link cssColorProp Tlou2Yellow
+hi! link cssGeneratedContentProp Tlou2Yellow
+hi! link cssTagName Tlou2BrightBlue
 
 " SASS
-hi! link sassClass tlou2Blue
-hi! link sassClassChar tlou2Blue
-hi! link sassVariable tlou2Cyan
-hi! link sassIdChar tlou2BrightBlue
+hi! link sassClass Tlou2Blue
+hi! link sassClassChar Tlou2Blue
+hi! link sassVariable Tlou2Cyan
+hi! link sassIdChar Tlou2BrightBlue
 
 " }}}
 " JavaScript: {{{
 
-hi! link javaScriptMember tlou2Blue
-hi! link javaScriptNull tlou2Magenta
+hi! link javaScriptMember Tlou2Blue
+hi! link javaScriptNull Tlou2Magenta
 
 " }}}
 " YAJS: {{{
 
-hi! link javascriptParens tlou2BrightCyan
+hi! link javascriptParens Tlou2BrightCyan
 hi! link javascriptFuncArg Normal
-hi! link javascriptDocComment tlou2Green
+hi! link javascriptDocComment Tlou2Green
 hi! link javascriptArrayMethod Function
 hi! link javascriptReflectMethod Function
 hi! link javascriptStringMethod Function
 hi! link javascriptObjectMethod Function
 hi! link javascriptObjectStaticMethod Function
-hi! link javascriptObjectLabel tlou2Blue
+hi! link javascriptObjectLabel Tlou2Blue
 
-hi! link javascriptProp tlou2Blue
+hi! link javascriptProp Tlou2Blue
 
-hi! link javascriptVariable tlou2BrightBlue
-hi! link javascriptOperator tlou2BrightCyan
-hi! link javascriptFuncKeyword tlou2BrightRed
-hi! link javascriptFunctionMethod tlou2Yellow
-hi! link javascriptReturn tlou2BrightRed
+hi! link javascriptVariable Tlou2BrightBlue
+hi! link javascriptOperator Tlou2BrightCyan
+hi! link javascriptFuncKeyword Tlou2BrightRed
+hi! link javascriptFunctionMethod Tlou2Yellow
+hi! link javascriptReturn Tlou2BrightRed
 hi! link javascriptEndColons Normal
 
 " }}}
 " CoffeeScript: {{{
 
-hi! link coffeeExtendedOp tlou2BrightWhite
-hi! link coffeeSpecialOp tlou2BrightWhite
-hi! link coffeeCurly tlou2Yellow
-hi! link coffeeParen tlou2BrightWhite
-hi! link coffeeBracket tlou2Yellow
+hi! link coffeeExtendedOp Tlou2BrightWhite
+hi! link coffeeSpecialOp Tlou2BrightWhite
+hi! link coffeeCurly Tlou2Yellow
+hi! link coffeeParen Tlou2BrightWhite
+hi! link coffeeBracket Tlou2Yellow
 
 " }}}
 " Ruby: {{{
 
-hi! link rubyStringDelimiter tlou2Green
-hi! link rubyInterpolationDelimiter tlou2Cyan
+hi! link rubyStringDelimiter Tlou2Green
+hi! link rubyInterpolationDelimiter Tlou2Cyan
 hi! link rubyDefine Keyword
 
 " }}}
 " ObjectiveC: {{{
 
-hi! link objcTypeModifier tlou2Red
-hi! link objcDirective tlou2Blue
+hi! link objcTypeModifier Tlou2Red
+hi! link objcDirective Tlou2Blue
 
 " }}}
 " Go: {{{
 
-hi! link goDirective tlou2Cyan
-hi! link goConstants tlou2Magenta
-hi! link goDeclaration tlou2Red
-hi! link goDeclType tlou2Blue
-hi! link goBuiltins tlou2Yellow
+hi! link goDirective Tlou2Cyan
+hi! link goConstants Tlou2Magenta
+hi! link goDeclaration Tlou2Red
+hi! link goDeclType Tlou2Blue
+hi! link goBuiltins Tlou2Yellow
 
 " }}}
 " Lua: {{{
 
-hi! link luaIn tlou2Red
-hi! link luaFunction tlou2Cyan
-hi! link luaTable tlou2Yellow
+hi! link luaIn Tlou2Red
+hi! link luaFunction Tlou2Cyan
+hi! link luaTable Tlou2Yellow
 
 " }}}
 " MoonScript: {{{
 
-hi! link moonSpecialOp tlou2BrightWhite
-hi! link moonExtendedOp tlou2BrightWhite
-hi! link moonFunction tlou2BrightWhite
-hi! link moonObject tlou2Yellow
+hi! link moonSpecialOp Tlou2BrightWhite
+hi! link moonExtendedOp Tlou2BrightWhite
+hi! link moonFunction Tlou2BrightWhite
+hi! link moonObject Tlou2Yellow
 
 " }}}
 " Java: {{{
 
-hi! link javaAnnotation tlou2Blue
-hi! link javaDocTags tlou2Cyan
+hi! link javaAnnotation Tlou2Blue
+hi! link javaDocTags Tlou2Cyan
 hi! link javaCommentTitle vimCommentTitle
-hi! link javaParen tlou2BrightWhite
-hi! link javaParen1 tlou2BrightWhite
-hi! link javaParen2 tlou2BrightWhite
-hi! link javaParen3 tlou2BrightWhite
-hi! link javaParen4 tlou2BrightWhite
-hi! link javaParen5 tlou2BrightWhite
-hi! link javaOperator tlou2Yellow
+hi! link javaParen Tlou2BrightWhite
+hi! link javaParen1 Tlou2BrightWhite
+hi! link javaParen2 Tlou2BrightWhite
+hi! link javaParen3 Tlou2BrightWhite
+hi! link javaParen4 Tlou2BrightWhite
+hi! link javaParen5 Tlou2BrightWhite
+hi! link javaOperator Tlou2Yellow
 
-hi! link javaVarArg tlou2Green
+hi! link javaVarArg Tlou2Green
 
 " }}}
 " Elixir: {{{
 
 hi! link elixirDocString Comment
 
-hi! link elixirStringDelimiter tlou2Green
-hi! link elixirInterpolationDelimiter tlou2Cyan
+hi! link elixirStringDelimiter Tlou2Green
+hi! link elixirInterpolationDelimiter Tlou2Cyan
 
 " }}}
 " Scala: {{{
 
 " NB: scala vim syntax file is kinda horrible
-hi! link scalaNameDefinition tlou2Blue
-hi! link scalaCaseFollowing tlou2Blue
-hi! link scalaCapitalWord tlou2Blue
-hi! link scalaTypeExtension tlou2Blue
+hi! link scalaNameDefinition Tlou2Blue
+hi! link scalaCaseFollowing Tlou2Blue
+hi! link scalaCapitalWord Tlou2Blue
+hi! link scalaTypeExtension Tlou2Blue
 
-hi! link scalaKeyword tlou2Red
-hi! link scalaKeywordModifier tlou2Red
+hi! link scalaKeyword Tlou2Red
+hi! link scalaKeywordModifier Tlou2Red
 
-hi! link scalaSpecial tlou2Cyan
-hi! link scalaOperator tlou2Blue
+hi! link scalaSpecial Tlou2Cyan
+hi! link scalaOperator Tlou2Blue
 
-hi! link scalaTypeDeclaration tlou2Yellow
-hi! link scalaTypeTypePostDeclaration tlou2Yellow
+hi! link scalaTypeDeclaration Tlou2Yellow
+hi! link scalaTypeTypePostDeclaration Tlou2Yellow
 
-hi! link scalaInstanceDeclaration tlou2Blue
-hi! link scalaInterpolation tlou2Cyan
+hi! link scalaInstanceDeclaration Tlou2Blue
+hi! link scalaInterpolation Tlou2Cyan
 
 " }}}
 " Markdown: {{{
 
 call s:HL('markdownItalic', s:bright_white, s:none, s:italic)
 
-hi! link markdownH1 tlou2GreenBold
-hi! link markdownH2 tlou2GreenBold
-hi! link markdownH3 tlou2YellowBold
-hi! link markdownH4 tlou2YellowBold
-hi! link markdownH5 tlou2Yellow
-hi! link markdownH6 tlou2Yellow
+hi! link markdownH1 Tlou2GreenBold
+hi! link markdownH2 Tlou2GreenBold
+hi! link markdownH3 Tlou2YellowBold
+hi! link markdownH4 Tlou2YellowBold
+hi! link markdownH5 Tlou2Yellow
+hi! link markdownH6 Tlou2Yellow
 
-hi! link markdownCode tlou2Cyan
-hi! link markdownCodeBlock tlou2Cyan
-hi! link markdownCodeDelimiter tlou2Cyan
+hi! link markdownCode Tlou2Cyan
+hi! link markdownCodeBlock Tlou2Cyan
+hi! link markdownCodeDelimiter Tlou2Cyan
 
-hi! link markdownBlockquote tlou2BrightBlack
-hi! link markdownListMarker tlou2BrightBlack
-hi! link markdownOrderedListMarker tlou2BrightBlack
-hi! link markdownRule tlou2BrightBlack
-hi! link markdownHeadingRule tlou2BrightBlack
+hi! link markdownBlockquote Tlou2BrightBlack
+hi! link markdownListMarker Tlou2BrightBlack
+hi! link markdownOrderedListMarker Tlou2BrightBlack
+hi! link markdownRule Tlou2BrightBlack
+hi! link markdownHeadingRule Tlou2BrightBlack
 
-hi! link markdownUrlDelimiter tlou2BrightWhite
-hi! link markdownLinkDelimiter tlou2BrightWhite
-hi! link markdownLinkTextDelimiter tlou2BrightWhite
+hi! link markdownUrlDelimiter Tlou2BrightWhite
+hi! link markdownLinkDelimiter Tlou2BrightWhite
+hi! link markdownLinkTextDelimiter Tlou2BrightWhite
 
-hi! link markdownHeadingDelimiter tlou2Yellow
-hi! link markdownUrl tlou2Magenta
-hi! link markdownUrlTitleDelimiter tlou2Green
+hi! link markdownHeadingDelimiter Tlou2Yellow
+hi! link markdownUrl Tlou2Magenta
+hi! link markdownUrlTitleDelimiter Tlou2Green
 
 call s:HL('markdownLinkText', s:bright_black, s:none, s:underline)
 hi! link markdownIdDeclaration markdownLinkText
@@ -1021,60 +1077,65 @@ hi! link markdownIdDeclaration markdownLinkText
 " }}}
 " Haskell: {{{
 
-" hi! link haskellType tlou2Yellow
-" hi! link haskellOperators tlou2Yellow
-" hi! link haskellConditional tlou2Cyan
-" hi! link haskellLet tlou2Yellow
-"
-hi! link haskellType tlou2Blue
-hi! link haskellIdentifier tlou2Blue
-hi! link haskellSeparator tlou2Blue
-hi! link haskellDelimiter tlou2BrightWhite
-hi! link haskellOperators tlou2Blue
-"
-hi! link haskellBacktick tlou2Yellow
-hi! link haskellStatement tlou2Yellow
-hi! link haskellConditional tlou2Yellow
+" hi! link haskellType Tlou2Yellow
+" hi! link haskellOperators Tlou2Yellow
+" hi! link haskellConditional Tlou2Cyan
+" hi! link haskellLet Tlou2Yellow
 
-hi! link haskellLet tlou2Cyan
-hi! link haskellDefault tlou2Cyan
-hi! link haskellWhere tlou2Cyan
-hi! link haskellBottom tlou2Cyan
-hi! link haskellBlockKeywords tlou2Cyan
-hi! link haskellImportKeywords tlou2Cyan
-hi! link haskellDeclKeyword tlou2Cyan
-hi! link haskellDeriving tlou2Cyan
-hi! link haskellAssocType tlou2Cyan
+hi! link haskellType Tlou2Blue
+hi! link haskellIdentifier Tlou2Blue
+hi! link haskellSeparator Tlou2Blue
+hi! link haskellDelimiter Tlou2BrightWhite
+hi! link haskellOperators Tlou2Blue
 
-hi! link haskellNumber tlou2Magenta
-hi! link haskellPragma tlou2Magenta
+hi! link haskellBacktick Tlou2Yellow
+hi! link haskellStatement Tlou2Yellow
+hi! link haskellConditional Tlou2Yellow
 
-hi! link haskellString tlou2Green
-hi! link haskellChar tlou2Green
+hi! link haskellLet Tlou2Cyan
+hi! link haskellDefault Tlou2Cyan
+hi! link haskellWhere Tlou2Cyan
+hi! link haskellBottom Tlou2Cyan
+hi! link haskellBlockKeywords Tlou2Cyan
+hi! link haskellImportKeywords Tlou2Cyan
+hi! link haskellDeclKeyword Tlou2Cyan
+hi! link haskellDeriving Tlou2Cyan
+hi! link haskellAssocType Tlou2Cyan
+
+hi! link haskellNumber Tlou2Magenta
+hi! link haskellPragma Tlou2Magenta
+
+hi! link haskellString Tlou2Green
+hi! link haskellChar Tlou2Green
 
 " }}}
 " Json: {{{
 
-hi! link jsonKeyword tlou2Green
-hi! link jsonQuote tlou2Green
-hi! link jsonBraces tlou2Blue
-hi! link jsonString tlou2Blue
+hi! link jsonKeyword Tlou2Green
+hi! link jsonQuote Tlou2Green
+hi! link jsonBraces Tlou2Blue
+hi! link jsonString Tlou2Blue
 
 " }}}
 " Rust: {{{
+
 "https://github.com/rust-lang/rust.vim/blob/master/syntax/rust.vim
-hi! link rustCommentLineDoc tlou2Green
-hi! link rustModPathSep tlou2BrightBlack
+hi! link rustCommentLineDoc Tlou2Green
+hi! link rustModPathSep Tlou2BrightBlack
+
 " }}}
 " Make: {{{
-hi! link makePreCondit tlou2Red
-hi! link makeCommands tlou2BrightWhite
-hi! link makeTarget tlou2Yellow
+
+hi! link makePreCondit Tlou2Red
+hi! link makeCommands Tlou2BrightWhite
+hi! link makeTarget Tlou2Yellow
+
 " }}}
 " Misc: {{{
+
 call s:HL('shParenError', s:bright_white, s:bright_red)
 call s:HL('ExtraWhitespace', s:none, s:red)
+
 " }}}
 
 " vim: set sw=2 ts=2 sts=2 et tw=80 ft=vim fdm=marker :
-
