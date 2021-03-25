@@ -43,7 +43,7 @@ ruled.client.connect_signal("request::rules", function()
                 "pop-up",         -- e.g. Google Chrome's (detached) Developer Tools.
             }
         },
-        properties = { 
+        properties = {
             floating = true
         }
     }
@@ -51,18 +51,19 @@ ruled.client.connect_signal("request::rules", function()
     -- Add titlebars to normal clients
     ruled.client.append_rule {
         id = "titlebars",
-        rule_any = { 
-            type = { 
+        rule_any = {
+            type = {
                 "normal"
-            }, 
+            },
         },
         except_any = {
             class = {
-                "qutebrowser"
+                "qutebrowser",
+                "obsidian"
             }
         },
-        properties = { 
-            titlebars_enabled = true 
+        properties = {
+            titlebars_enabled = true
         }
     }
 

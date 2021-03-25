@@ -16,7 +16,7 @@ set background=dark
 set encoding=UTF-8
 set clipboard+=unnamedplus
 
-colorscheme tlou2
+colorscheme srcery
 
 " Plugin settings
 let g:nvim_tree_side = 'right'

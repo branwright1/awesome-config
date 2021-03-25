@@ -1,10 +1,10 @@
 pcall(require, "luarocks.loader")
 
 local awful = require("awful")
-local gears = require("gears")
 local naughty = require("naughty")
 local beautiful = require("beautiful")
 local gfs = require("gears.filesystem")
+
 
 -- Error on startup notification:
 naughty.connect_signal("request::display_error", function(message, startup)
@@ -37,24 +37,32 @@ controlkey = "Control"
 local bling = require("bling")
 local walls = gfs.get_configuration_dir()
 bling.module.wallpaper.setup {
-    wallpaper = { 
+    wallpaper = {
         walls .. "assets/wallpapers/house-wall.png"
     },
     position = maximized,
 }
 
 bling.module.flash_focus.enable()
-bling.module.window_swallowing.start()
+-- bling.module.window_swallowing.start()
 
+local floating = awful.layout.suit.floating
+local tile = awful.layout.suit.tile
+local vertical = bling.layout.vertical
+local centered = bling.layout.centered
+
+awful.layout.layouts = {
+    floating, tile, vertical, centered
+}
 
 -- Define tag names
 screen.connect_signal("request::desktop_decoration", function(s)
     awful.tag.add("code", {
-        gap = 0,
+        gap = 12,
         screem = s,
         layout = awful.layout.suit.floating,
     })
-    awful.tag.add("tinywl", {
+    awful.tag.add("river", {
         gap = 0,
         screem = s,
         layout = awful.layout.suit.floating,
@@ -70,12 +78,13 @@ screen.connect_signal("request::desktop_decoration", function(s)
         screen = s,
         layout = awful.layout.suit.floating,
     })
-    awful.tag.add("extra", {
+    awful.tag.add("netbsd", {
         gap = 0,
         screem = s,
         layout = awful.layout.suit.floating,
     })
 end)
+
 
 -- Focus on click
 client.connect_signal("focus",
