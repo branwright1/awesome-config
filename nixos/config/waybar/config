@@ -24,8 +24,8 @@
             "2": "2",
             "3": "3",
             "4": "3",
-            "5": "5",
-        }, 
+            "5": "5"
+        }
     },
     "clock": {
         "interval": 60,
@@ -84,11 +84,11 @@
         "format": "{icon}{}",
         "return-type": "json",
         "format-icons": {
-        "default": " ",
+        "default": " "
     },
     "max-length":70,
     "exec": "playerctl metadata --format '{\"text\": \"{{title}} - {{artist}}\", \"tooltip\": \"{{playerName}} : {{title}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
-    "on-click": "playerctl play-pause",
-        },
+    "on-click": "playerctl play-pause"
+        }
     }
 }

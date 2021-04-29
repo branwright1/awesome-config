@@ -9,8 +9,8 @@ local naughty = require("naughty")
 local theme = {}
 
 -- Global font
-theme.font = "Pragmata Pro Bold 10"
-theme.font_notifs = "Pragmata Pro 10"
+theme.font = "Cascadia Code Bold 10"
+theme.font_notifs = "Cascadia Code 10"
 
 -- Wibar Settigs
 theme.wibar_height = dpi(27)
@@ -54,7 +54,7 @@ theme.hotkeys_group_margin = dpi(5)
 -- mouse menu
 theme.menu_height       = dpi(28)
 theme.menu_width        = dpi(120)
-theme.menu_font         = "Dina 9"
+theme.menu_font         = "Cascadia Code 9"
 theme.menu_border_width = dpi(2)
 theme.menu_border_color = "#443a36"
 

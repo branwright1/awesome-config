@@ -17,17 +17,20 @@ terminal = "alacritty"
 editor_cmd = terminal .. " -e " .. editor
 virtmgr = "virt-manager"
 
+-- system menu
+switch = "home-manager switch"
+reboot = "doas reboot"
+shutdown = "doas shutdown now"
 
--- table of apps
+-- apps table
 apps = {
     { "discord", discord },
     { "telegram", telegram },
     { "spotify", spotify },
-    { "browser", browser },
+    { "browser", browser }
 }
 
-
--- table of tools
+-- tools table
 tools = {
     { "shoot", shoot },
     { "editor", editor_cmd },
@@ -35,29 +38,36 @@ tools = {
     { "terminal", terminal }
 }
 
+-- system table
+system = {
+    { "switch", switch },
+    { "reboot", reboot },
+    { "shutdown", shutdown }
+}
 
---- table of awesome 
+--- table of awesome
 awesomemenu = {
     { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
     { "manual", terminal .. " -e man awesome" },
     { "edit config", editor_cmd .. " " .. awesome.conffile },
     { "restart", function() awesome.restart() end },
-    { "quit", function() awesome.quit() end },
+    { "quit", function() awesome.quit() end }
 }
 
 
-mymainmenu = awful.menu({ 
+mymainmenu = awful.menu({
     items = {
         { "Apps", apps },
         { "Tools", tools },
+        { "System", system },
         { "Awesome", awesomemenu, beautiful.awesome_icon }
     }
 })
 
 
-mylauncher = awful.widget.launcher({ 
+mylauncher = awful.widget.launcher({
     image = beautiful.awesome_icon,
-    menu = mymainmenu 
+    menu = mymainmenu
 })
 
 

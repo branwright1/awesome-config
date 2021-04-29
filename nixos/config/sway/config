@@ -3,7 +3,7 @@ exec mako
 # exec oguri
 exec flashfocus
 exec_always /run/current-system/sw/libexec/polkit-gnome-authentication-agent-1
- 
+
 # Disable tiling grab
 tiling_drag disable
 
@@ -153,7 +153,7 @@ output eDP-1 disable
 # Resizing containers:
 #
 mode "resize" {
-   
+
    # Containers Size
     bindsym $left resize shrink width 10px
     bindsym $down resize grow height 10px

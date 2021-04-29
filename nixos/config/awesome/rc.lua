@@ -29,6 +29,7 @@ collectgarbage("setstepmul", 1000)
 
 -- modifiers
 modkey = "Mod1"
+winkey = "Mod4"
 shiftkey = "Shift"
 controlkey = "Control"
 
@@ -44,7 +45,6 @@ bling.module.wallpaper.setup {
 }
 
 bling.module.flash_focus.enable()
--- bling.module.window_swallowing.start()
 
 local floating = awful.layout.suit.floating
 local tile = awful.layout.suit.tile
@@ -58,30 +58,30 @@ awful.layout.layouts = {
 -- Define tag names
 screen.connect_signal("request::desktop_decoration", function(s)
     awful.tag.add("code", {
-        gap = 12,
+        gap = 10,
         screem = s,
-        layout = awful.layout.suit.floating,
+        layout = tile,
     })
     awful.tag.add("river", {
         gap = 0,
         screem = s,
-        layout = awful.layout.suit.floating,
+        layout = floating,
     })
     awful.tag.add("home", {
         gap = 0,
         screen = s,
         selected = true,
-        layout = awful.layout.suit.floating,
+        layout = floating,
     })
     awful.tag.add("web", {
-        gap = 0,
+        gap = 10,
         screen = s,
-        layout = awful.layout.suit.floating,
+        layout = tile,
     })
     awful.tag.add("netbsd", {
         gap = 0,
         screem = s,
-        layout = awful.layout.suit.floating,
+        layout = floating,
     })
 end)
 
@@ -97,6 +97,6 @@ client.connect_signal("unfocus",
         c.border_color = beautiful.border_normal
 end)
 
-
 -- Load modules
+require("autostart")
 require("settings")

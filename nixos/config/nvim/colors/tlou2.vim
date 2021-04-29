@@ -1,6 +1,6 @@
 " -----------------------------------------------------------------------------
 " Name:         tlou2
-" Description:  Based on wallpaper from The Last of Us 2 
+" Description:  Based on wallpaper from The Last of Us 2
 " Author:       Brandon Wright
 " Website:      https://gitlab.com/branwright/non-flaked-nix/
 " License:      MIT

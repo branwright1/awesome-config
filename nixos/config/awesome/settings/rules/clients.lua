@@ -12,8 +12,11 @@ ruled.client.connect_signal("request::rules", function()
             raise = true,
             size_hints_honor = false,
             screen = awful.screen.preferred,
-            placement = awful.placement.centered + awful.placement.no_overlap + awful.placement.no_offscreen
-        }
+            placement = awful.placement.no_overlap +
+                awful.placement.no_offscreen +
+                awful.placement.centered
+        },
+        callback = awful.client.setslave
     }
 
     -- Floating clients.
@@ -21,15 +24,15 @@ ruled.client.connect_signal("request::rules", function()
         id = "floating",
         rule_any = {
             instance = { "copyq", "pinentry" },
-            class = { 
-                "Arandr", 
-                "Blueman-manager", 
-                "Gpick", 
-                "Kruler", 
+            class = {
+                "Arandr",
+                "Blueman-manager",
+                "Gpick",
+                "Kruler",
                 "Sxiv",
-                "Tor Browser", 
-                "Wpa_gui", 
-                "veromix", 
+                "Tor Browser",
+                "Wpa_gui",
+                "veromix",
                 "xtightvncviewer"
             },
             -- Note that the name property shown in xprop might be set slightly after creation of the client
@@ -59,8 +62,9 @@ ruled.client.connect_signal("request::rules", function()
         except_any = {
             class = {
                 "qutebrowser",
-                "obsidian"
-            }
+                "obsidian",
+                "google-chrome"
+            },
         },
         properties = {
             titlebars_enabled = true
