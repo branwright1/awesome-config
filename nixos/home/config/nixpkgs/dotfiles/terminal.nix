@@ -60,8 +60,8 @@
     git = {
       enable = true;
       package = pkgs.git;
-      userName = "branwright1";
-      userEmail = "ignacy423@gmail.com";
+      userName = "xxx";
+      userEmail = "xxx";
     };
     feh = {
       enable = true;
