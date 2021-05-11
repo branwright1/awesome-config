@@ -1,3 +1,0 @@
-[submodule "bling"]
-	path = nixos/.config/awesome/bling
-	url = https://github.com/BlingCorp/bling.git

@@ -11,7 +11,9 @@
   };
 
   security = {
-    polkit = { enable = true; };
+    polkit = {
+      enable = true;
+    };
     doas = {
       enable = true;
       extraRules = [{
@@ -22,8 +24,12 @@
     };
   };
 
-  i18n = { defaultLocale = "en_GB.UTF-8"; };
+  i18n = {
+    defaultLocale = "en_GB.UTF-8";
+  };
 
-  console = { keyMap = "pl"; };
+  console = {
+    keyMap = "pl";
+  };
 
 }

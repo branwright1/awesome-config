@@ -29,7 +29,17 @@
           enable = true;
           user = "bran";
         };
-        defaultSession = "none+awesome";
+        defaultSession = "xfce+awesome";
+      };
+      desktopManager = {
+        xterm = {
+          enable = true;
+        };
+        xfce = {
+          enable = true;
+          noDesktop = true;
+          enableXfwm = false;
+        };
       };
       windowManager = {
         awesome = {
@@ -45,7 +55,8 @@
         herbstluftwm = {
           enable = true;
           package = pkgs.herbstluftwm;
-          configFile = "/home/bran/.config/nixpkgs/dotfiles/herbstluftwm/autostart";
+          configFile =
+            "/home/bran/.config/nixpkgs/dotfiles/herbstluftwm/autostart";
         };
       };
     };

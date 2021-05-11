@@ -4,7 +4,7 @@
 
   programs = {
     sway = {
-      enable = false;
+      enable = true;
       wrapperFeatures = {
         base = true;
         gtk = true;

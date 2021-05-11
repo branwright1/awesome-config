@@ -3,6 +3,7 @@
 {
 
   imports = [
+    ./cachix.nix
     ./modules/hardware/display/Wayland.nix
     ./modules/hardware/display/X11.nix
     ./modules/hardware/boot.nix
@@ -31,6 +32,16 @@
       };
     };
   };
+
+/*
+  home-manager = {
+    users = {
+      bran = import ../../home/bran/.config/nixpkgs/home.nix;
+    };
+    useGlobalPkgs = true;
+    useUserPackages = true;
+  };
+*/
 
   nix = {
     allowedUsers = [ "bran" ];

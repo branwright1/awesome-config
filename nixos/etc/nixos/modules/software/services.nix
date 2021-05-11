@@ -6,14 +6,7 @@
     dbus = {
       enable = true;
     };
-    pipewire = {
-      enable = true;
-      package = pkgs.pipewire;
-      alsa = {
-        enable = true;
-      };
-    };
-    qemuGuest = {
+  qemuGuest = {
       enable = true;
       package = pkgs.qemu;
     };

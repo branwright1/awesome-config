@@ -23,6 +23,8 @@
       driSupport = true;
       driSupport32Bit = true;
       extraPackages = with pkgs; [
+        intel-compute-runtime
+        intel-ocl
         intel-media-driver
         vaapiIntel
         vaapiVdpau
@@ -30,7 +32,7 @@
       ];
     };
     pulseaudio = {
-      enable = false;
+      enable = true;
     };
     bluetooth = {
       enable = false;
