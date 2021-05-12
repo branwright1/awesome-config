@@ -14,6 +14,10 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+" bufferline.lua binings
+nnoremap <silent>[b :BufferLineCycleNext<CR>
+nnoremap <silent>b] :BufferLineCyclePrev<CR>
+
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)

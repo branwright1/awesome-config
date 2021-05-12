@@ -1,8 +1,12 @@
 {
    "languageserver": {
        "zls" : {
-           "command": "zls",
+           "command": "$HOME/zls/zig-out/bin/zls",
            "filetypes": ["zig"]
-       }
+       },
+        "rnix-lsp" : {
+            "command": "rnix-lsp",
+            "filetypes": ["nix"]
+        }
    }
 }

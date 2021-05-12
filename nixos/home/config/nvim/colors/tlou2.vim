@@ -98,7 +98,7 @@ if !exists('g:tlou2_dim_lisp_paren')
   let g:tlou2_dim_lisp_paren=0
 endif
 
-if !exists('g:tlou2_guisp_fallback') || index(['fg', 'bg'], g:srcery_guisp_fallback) == -1
+if !exists('g:tlou2_guisp_fallback') || index(['fg', 'bg'], g:tlou2_guisp_fallback) == -1
   let g:tlou2_guisp_fallback='NONE'
 endif
 
@@ -341,7 +341,7 @@ endif
 
 hi! link VisualNOS Visual
 
-if g:tlou2_inverse == 1 && g:srcery_inverse_matches == 1
+if g:tlou2_inverse == 1 && g:tlou2_inverse_matches == 1
   call s:HL('Search', s:none, s:none, s:inverse)
   call s:HL('IncSearch', s:none, s:none, s:inverse)
 else

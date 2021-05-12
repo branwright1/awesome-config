@@ -6,6 +6,7 @@ set hidden
 set number relativenumber
 set cursorline
 set ruler
+set mouse=a
 set linebreak
 set tabstop=2
 set expandtab ts=4 sw=4 ai
@@ -16,12 +17,23 @@ set background=dark
 set encoding=UTF-8
 set clipboard+=unnamedplus
 
-colorscheme srcery
+let g:gruvbox_material_background = 'hard'
+
+colorscheme gruvbox-material
 
 " Plugin settings
 let g:nvim_tree_side = 'right'
-let g:nvim_tree_width = 40
+let g:nvim_tree_width = 25
+let g:nvim_tree_auto_open = 1
+let g:nvim_tree_show_icons = {
+    \ 'git': 0,
+    \ 'folders': 1,
+    \ 'icons': 1,
+    \}
 let g:nvim_tree_indent_markers = 1
+
+
+let g:zig_fmt_autosave = 1
 
 autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 
