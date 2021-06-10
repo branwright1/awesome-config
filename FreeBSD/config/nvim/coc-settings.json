@@ -1,0 +1,8 @@
+{
+   "languageserver": {
+       "zls" : {
+           "command": "$HOME/.zls/zig-out/bin/zls",
+           "filetypes": ["zig"]
+       }
+   }
+}

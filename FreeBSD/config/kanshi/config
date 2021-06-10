@@ -1,0 +1,4 @@
+profile {
+    output eDP-1 disable
+    output HDMI-A-1 mode 1920x1080@74.97300Hz position 0,0
+}
