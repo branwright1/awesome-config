@@ -1,18 +1,18 @@
-font=Dina 10
+font=Dina 9
 
-background-color=#201e1a
-text-color=#79695a
-padding=8
-margin=32
+background-color=#161821
+text-color=#C6CBD1
+padding=12
+margin=20
 progress-color=over #eceff480
-max-icon-size=40
+max-icon-size=45
 anchor=top-right
-height=90
-width=280
+height=95
+width=295
 
 border-size=2
-border-radius=0
-border-color=#3e2d23
+border-radius=5
+border-color=#A093C7
 
 default-timeout=5000
 layer=overlay
